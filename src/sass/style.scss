@@ -1,0 +1,39 @@
+.wrapper{
+    margin: auto;
+    max-width: 1440px;
+    height: 100vh;
+    background-color: green;
+}
+.header{
+    height: 20vh;
+    background-color: red;
+    display: flex;
+    justify-content: space-between;
+}
+.menu_button{
+    width: 2vw;
+    height: 2vw;
+    background-color: blue;
+    margin-top: 4%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.train{    
+    width: 8vw;
+    height: 2vw;
+    background-color: blue;
+    margin-top: 4%;
+    cursor: pointer;
+}
+.main{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.pics{
+    margin-top: 4vh;
+    width: 23%;
+    height: 30vh;
+    background-color: sandybrown;
+}
