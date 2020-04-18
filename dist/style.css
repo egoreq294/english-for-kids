@@ -1,2 +1,80 @@
-*{transition:all ease 0.6s}html{scroll-behavior:smooth}.wrapper{margin:auto;max-width:1440px;height:100vh}.header{height:12vw;background-color:red;display:flex;justify-content:space-between}.menu_button{width:2vw;height:2vw;background-color:blue;margin-top:4%;outline:none;border:none;cursor:pointer;z-index:3}.train{width:8vw;height:2vw;background-color:blue;margin-top:4%;cursor:pointer}.main{display:flex;justify-content:space-between;flex-wrap:wrap}.pics{margin-top:4vh;width:23%;height:18vw;box-shadow:0 0 10px #323746;cursor:pointer}.pics:hover{box-shadow:0 0 10px 5px #323746}.main_page--pics{width:10vw;height:10vw;border-radius:50%;display:block;margin:2vw auto}.main_page--text{text-align:center;font-size:24px}.burger{position:fixed;height:100vh;width:20vw;background-color:cyan;top:0;left:0}ul{padding:50% 0 0 30%}a{font-size:20px;text-decoration:none}.display_none{display:none}
+* {
+  transition: all ease 0.6s; }
 
+html {
+  scroll-behavior: smooth; }
+
+.wrapper {
+  margin: auto;
+  max-width: 1440px;
+  height: 100vh; }
+
+.header {
+  height: 12vw;
+  background-color: red;
+  display: flex;
+  justify-content: space-between; }
+
+.menu_button {
+  width: 2vw;
+  height: 2vw;
+  background-color: blue;
+  margin-top: 4%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  z-index: 3; }
+
+.train {
+  width: 8vw;
+  height: 2vw;
+  background-color: blue;
+  margin-top: 4%;
+  cursor: pointer; }
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; }
+
+.pics {
+  margin-top: 4vh;
+  width: 23%;
+  height: 18vw;
+  box-shadow: 0 0 10px #323746;
+  cursor: pointer; }
+
+.pics:hover {
+  box-shadow: 0 0 10px 5px #323746; }
+
+.main_page--pics {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+  display: block;
+  margin: 2vw auto; }
+
+.main_page--text {
+  text-align: center;
+  font-size: 24px; }
+
+.burger {
+  position: fixed;
+  height: 100vh;
+  width: 20vw;
+  background-color: cyan;
+  top: 0;
+  left: 0; }
+
+ul {
+  padding: 50% 0 0 30%; }
+
+a {
+  font-size: 20px;
+  text-decoration: none; }
+
+.display_none {
+  display: none; }
+
+
+/*# sourceMappingURL=style.css.map*/

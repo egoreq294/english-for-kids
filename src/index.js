@@ -465,3 +465,44 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
         }
     }
 });
+
+//main click
+document.querySelector('.main').addEventListener('click',(event)=>{
+  if (event.target.tagName==='div'.toUpperCase()){  
+    console.log('privet');  
+      for(let i = 0; i < cards[0].length; i++){
+        let j = 0;
+        if(event.target.lastChild.innerHTML === cards[0][i]){            
+              cards[i+1].forEach(item=>{
+              mainPagePictures[j].src = item.image;
+              mainPageText[j].innerHTML = item.word;
+              j += 1;
+            });
+        }
+      }
+   }
+   if (event.target.tagName==='p'.toUpperCase()){
+    for(let i = 0; i < cards[0].length; i++){
+      let j = 0;
+      if(event.target.innerHTML === cards[0][i]){            
+            cards[i+1].forEach(item=>{
+            mainPagePictures[j].src = item.image;
+            mainPageText[j].innerHTML = item.word;
+            j += 1;
+          });
+      }
+    }
+   }
+   if (event.target.tagName==='img'.toUpperCase()){
+    for(let i = 0; i < cards[0].length; i++){
+      let j = 0;
+      if(event.target.parentNode.lastChild.innerHTML === cards[0][i]){            
+            cards[i+1].forEach(item=>{
+            mainPagePictures[j].src = item.image;
+            mainPageText[j].innerHTML = item.word;
+            j += 1;
+          });
+      }
+    }
+   }
+});
