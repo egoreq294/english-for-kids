@@ -81,3 +81,10 @@ button{
     width: 20px;
     height: 20px;
 }
+.front{
+    backface-visibility: hidden;
+}
+.back{
+    transform: rotateY(180deg);    
+    backface-visibility: hidden;
+}

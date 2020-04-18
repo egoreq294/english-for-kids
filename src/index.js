@@ -561,3 +561,13 @@ document.querySelector('.main').addEventListener('click',(event)=>{
     });
    }
 });
+
+//flip
+document.querySelector('.main').addEventListener('click',(event)=>{
+  console.log(event.parentNode);
+  console.log(event.target.parentNode);
+  if (event.target.tagName==='button'.toUpperCase()){    
+      event.target.parentNode.classList.add('back');
+      event.target.parentNode.classList.remove('front');
+    }
+});
