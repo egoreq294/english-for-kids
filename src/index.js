@@ -448,21 +448,40 @@ document.querySelector('.menu_button').addEventListener('click',()=>{
     }
 });
 
-// burger click 
+// burger click
+let mainPage = document.querySelectorAll('.main_page');
+let category = document.querySelectorAll('.category');
 let mainPagePictures = document.querySelectorAll('.main_page--pics');
 let mainPageText = document.querySelectorAll('.main_page--text');
 document.querySelector('.burger_ul').addEventListener('click',(event)=>{
     if (event.target.tagName==='a'.toUpperCase()){
         for(let i = 0; i < cards[0].length; i++){
           let j = 0;
-          if(event.target.innerHTML === cards[0][i]){            
-                cards[i+1].forEach(item=>{
-                  mainPagePictures[j].src = item.image;
-                  mainPageText[j].innerHTML = item.word;
-                j += 1;
+          if(event.target.innerHTML === cards[0][i]){
+            if(event.target.innerHTML === 'Main Page'){
+              mainPage.forEach(item => {
+                item.classList.remove('category');
+                item.querySelector('.category_button').remove();
               });
-          }        
-        }
+            }
+            else{
+              if(!document.querySelector('.category_button')){
+                  mainPage.forEach(item => {
+                  item.classList.add('category');
+                  let button = document.createElement('button');
+                  button.classList.add('category_button');
+                  button.setAttribute('type', 'button');
+                  item.append(button);
+                });
+              }
+            }
+            cards[i+1].forEach(item=>{
+            mainPagePictures[j].src = item.image;
+            mainPageText[j].innerHTML = item.word;            
+            j += 1;
+          });
+        }        
+      }
     }
 });
 
@@ -480,6 +499,18 @@ document.querySelector('.main').addEventListener('click',(event)=>{
             });
         }
       }
+      mainPage.forEach(item => {
+        item.classList.add('category');
+        if(!document.querySelector('.category_button')){
+          mainPage.forEach(item => {
+          item.classList.add('category');
+          let button = document.createElement('button');
+          button.classList.add('category_button');
+          button.setAttribute('type', 'button');
+          item.append(button);
+        });
+      }
+      });
    }
    if (event.target.tagName==='p'.toUpperCase()){
     for(let i = 0; i < cards[0].length; i++){
@@ -492,6 +523,18 @@ document.querySelector('.main').addEventListener('click',(event)=>{
           });
       }
     }
+    mainPage.forEach(item => {
+      item.classList.add('category');
+      if(!document.querySelector('.category_button')){
+        mainPage.forEach(item => {
+        item.classList.add('category');
+        let button = document.createElement('button');
+        button.classList.add('category_button');
+        button.setAttribute('type', 'button');
+        item.append(button);
+      });
+    }
+    });
    }
    if (event.target.tagName==='img'.toUpperCase()){
     for(let i = 0; i < cards[0].length; i++){
@@ -504,5 +547,17 @@ document.querySelector('.main').addEventListener('click',(event)=>{
           });
       }
     }
+    mainPage.forEach(item => {
+      item.classList.add('category');
+      if(!document.querySelector('.category_button')){
+        mainPage.forEach(item => {
+        item.classList.add('category');
+        let button = document.createElement('button');
+        button.classList.add('category_button');
+        button.setAttribute('type', 'button');
+        item.append(button);
+      });
+    }
+    });
    }
 });

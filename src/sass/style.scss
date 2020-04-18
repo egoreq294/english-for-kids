@@ -37,7 +37,7 @@ html{
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.pics{
+.main_page{
     margin-top: 4vh;
     width: 23%;
     height: 18vw;  
@@ -75,4 +75,9 @@ a{
 }
 .display_none{
     display: none;
+}
+button{
+    background-color: cyan;
+    width: 20px;
+    height: 20px;
 }

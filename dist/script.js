@@ -445,8 +445,10 @@ document.querySelector('.menu_button').addEventListener('click', function () {
   } else {
     document.querySelector('.burger').classList.add('display_none');
   }
-}); // burger click 
+}); // burger click
 
+var mainPage = document.querySelectorAll('.main_page');
+var category = document.querySelectorAll('.category');
 var mainPagePictures = document.querySelectorAll('.main_page--pics');
 var mainPageText = document.querySelectorAll('.main_page--text');
 document.querySelector('.burger_ul').addEventListener('click', function (event) {
@@ -455,6 +457,23 @@ document.querySelector('.burger_ul').addEventListener('click', function (event) 
       var j = 0;
 
       if (event.target.innerHTML === cards[0][i]) {
+        if (event.target.innerHTML === 'Main Page') {
+          mainPage.forEach(function (item) {
+            item.classList.remove('category');
+            item.querySelector('.category_button').remove();
+          });
+        } else {
+          if (!document.querySelector('.category_button')) {
+            mainPage.forEach(function (item) {
+              item.classList.add('category');
+              var button = document.createElement('button');
+              button.classList.add('category_button');
+              button.setAttribute('type', 'button');
+              item.append(button);
+            });
+          }
+        }
+
         cards[i + 1].forEach(function (item) {
           mainPagePictures[j].src = item.image;
           mainPageText[j].innerHTML = item.word;
@@ -488,6 +507,20 @@ document.querySelector('.main').addEventListener('click', function (event) {
     for (var i = 0; i < cards[0].length; i++) {
       _loop2(i);
     }
+
+    mainPage.forEach(function (item) {
+      item.classList.add('category');
+
+      if (!document.querySelector('.category_button')) {
+        mainPage.forEach(function (item) {
+          item.classList.add('category');
+          var button = document.createElement('button');
+          button.classList.add('category_button');
+          button.setAttribute('type', 'button');
+          item.append(button);
+        });
+      }
+    });
   }
 
   if (event.target.tagName === 'p'.toUpperCase()) {
@@ -506,6 +539,20 @@ document.querySelector('.main').addEventListener('click', function (event) {
     for (var _i = 0; _i < cards[0].length; _i++) {
       _loop3(_i);
     }
+
+    mainPage.forEach(function (item) {
+      item.classList.add('category');
+
+      if (!document.querySelector('.category_button')) {
+        mainPage.forEach(function (item) {
+          item.classList.add('category');
+          var button = document.createElement('button');
+          button.classList.add('category_button');
+          button.setAttribute('type', 'button');
+          item.append(button);
+        });
+      }
+    });
   }
 
   if (event.target.tagName === 'img'.toUpperCase()) {
@@ -524,6 +571,20 @@ document.querySelector('.main').addEventListener('click', function (event) {
     for (var _i2 = 0; _i2 < cards[0].length; _i2++) {
       _loop4(_i2);
     }
+
+    mainPage.forEach(function (item) {
+      item.classList.add('category');
+
+      if (!document.querySelector('.category_button')) {
+        mainPage.forEach(function (item) {
+          item.classList.add('category');
+          var button = document.createElement('button');
+          button.classList.add('category_button');
+          button.setAttribute('type', 'button');
+          item.append(button);
+        });
+      }
+    });
   }
 });
 
