@@ -43,9 +43,8 @@ html{
     height: 18vw;  
     box-shadow: 0 0 10px #323746;
     cursor: pointer;
-    position: relative;
 }
-.pics:hover{    
+.main_page:hover{    
     box-shadow: 0 0 10px 5px #323746;
 }
 .main_page--pics{
@@ -83,15 +82,8 @@ button{
     height: 20px;
 }
 .front{
-    backface-visibility: hidden;
-    position: absolute;
-    top:0;
-    left:0;
+
 }
 .back{
     transform: rotateY(180deg);
-    position: absolute;
-    top:0;
-    left: 0;
-    backface-visibility: hidden;
 }

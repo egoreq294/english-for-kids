@@ -478,7 +478,7 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
             cards[i+1].forEach(item=>{
             mainPagePictures[j].src = item.image;
             mainPageText[j].innerHTML = item.word;            
-            j += 2;
+            j += 1;
           });
         }        
       }
@@ -490,11 +490,11 @@ document.querySelector('.main').addEventListener('click',(event)=>{
   if (event.target.tagName==='div'.toUpperCase()){  
       for(let i = 0; i < cards[0].length; i++){
         let j = 0;
-        if(event.target.children[1].lastChild.innerHTML === cards[0][i]){            
+        if(event.target.lastChild.innerHTML === cards[0][i]){            
               cards[i+1].forEach(item=>{
               mainPagePictures[j].src = item.image;
               mainPageText[j].innerHTML = item.word;
-              j += 2;
+              j += 1;
             });
         }
       }
@@ -506,7 +506,7 @@ document.querySelector('.main').addEventListener('click',(event)=>{
           let button = document.createElement('button');
           button.classList.add('category_button');
           button.setAttribute('type', 'button');
-          item.append(button);
+          item.lastChild.append(button);
         });
       }
       });
@@ -518,7 +518,7 @@ document.querySelector('.main').addEventListener('click',(event)=>{
             cards[i+1].forEach(item=>{
             mainPagePictures[j].src = item.image;
             mainPageText[j].innerHTML = item.word;
-            j += 2;
+            j += 1;
           });
       }
     }
@@ -530,7 +530,8 @@ document.querySelector('.main').addEventListener('click',(event)=>{
         let button = document.createElement('button');
         button.classList.add('category_button');
         button.setAttribute('type', 'button');
-        item.append(button);
+        console.log(item);
+        item.lastChild.append(button);
       });
     }
     });
@@ -542,7 +543,7 @@ document.querySelector('.main').addEventListener('click',(event)=>{
             cards[i+1].forEach(item=>{
             mainPagePictures[j].src = item.image;
             mainPageText[j].innerHTML = item.word;
-            j += 2;
+            j += 1;
           });
       }
     }
@@ -554,17 +555,36 @@ document.querySelector('.main').addEventListener('click',(event)=>{
         let button = document.createElement('button');
         button.classList.add('category_button');
         button.setAttribute('type', 'button');
-        item.append(button);
+        item.lastChild.append(button);
       });
     }
     });
-   }
+  }
+   
+   
 });
 
 //flip
 document.querySelector('.main').addEventListener('click',(event)=>{
   if (event.target.tagName==='button'.toUpperCase()){    
       event.target.parentNode.classList.add('back');
-      event.target.parentNode.classList.remove('front');
+      event.target.parentNode.parentNode.classList.add('back');
+    }    
+    document.querySelectorAll('.main_page--text').forEach(item => {
+      for(let i = 0; i < cards.length; i++){
+        if(item.innerHTML === cards[0][i]){
+         cards[i].forEach(item1 => {
+           if(item.innerHTML === item1.word){
+             item.innerHTML = item1.translation;
+           }
+         });
+      }
+    }
+  });
+});
+document.querySelector('.main').addEventListener('mouseout',(event)=>{
+  if (event.target.tagName==='button'.toUpperCase()){    
+      event.target.parentNode.classList.remove('back');
+      event.target.parentNode.parentNode.classList.remove('back');
     }
 });
