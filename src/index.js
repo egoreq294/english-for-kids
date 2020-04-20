@@ -471,7 +471,7 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
                   let button = document.createElement('button');
                   button.classList.add('category_button');
                   button.setAttribute('type', 'button');
-                  item.append(button);
+                  item.lastChild.append(button);
                 });
               }
             }
@@ -490,7 +490,7 @@ document.querySelector('.main').addEventListener('click',(event)=>{
   if (event.target.tagName==='div'.toUpperCase()){  
       for(let i = 0; i < cards[0].length; i++){
         let j = 0;
-        if(event.target.lastChild.innerHTML === cards[0][i]){            
+        if(event.target.lastChild.innerHTML === cards[0][i] || event.target.lastChild.lastChild.innerHTML){            
               cards[i+1].forEach(item=>{
               mainPagePictures[j].src = item.image;
               mainPageText[j].innerHTML = item.word;
@@ -539,7 +539,7 @@ document.querySelector('.main').addEventListener('click',(event)=>{
    if (event.target.tagName==='img'.toUpperCase()){
     for(let i = 0; i < cards[0].length; i++){
       let j = 0;
-      if(event.target.parentNode.lastChild.innerHTML === cards[0][i]){            
+      if(event.target.parentNode.children[1].innerHTML === cards[0][i]){            
             cards[i+1].forEach(item=>{
             mainPagePictures[j].src = item.image;
             mainPageText[j].innerHTML = item.word;
@@ -567,24 +567,29 @@ document.querySelector('.main').addEventListener('click',(event)=>{
 //flip
 document.querySelector('.main').addEventListener('click',(event)=>{
   if (event.target.tagName==='button'.toUpperCase()){    
-      event.target.parentNode.classList.add('back');
-      event.target.parentNode.parentNode.classList.add('back');
-    }    
-    document.querySelectorAll('.main_page--text').forEach(item => {
-      for(let i = 0; i < cards.length; i++){
-        if(item.innerHTML === cards[0][i]){
-         cards[i].forEach(item1 => {
-           if(item.innerHTML === item1.word){
-             item.innerHTML = item1.translation;
-           }
-         });
-      }
+    event.target.parentNode.classList.add('back');
+    event.target.parentNode.parentNode.classList.add('back');
+      
+    
+    for(let i = 1; i < cards.length; i++){
+      cards[i].forEach(item1 => {
+        if(event.target.parentNode.children[1].innerHTML == item1.word){
+          event.target.parentNode.children[1].innerHTML = item1.translation;
+        }
+      });
     }
-  });
+  }
 });
 document.querySelector('.main').addEventListener('mouseout',(event)=>{
   if (event.target.tagName==='button'.toUpperCase()){    
       event.target.parentNode.classList.remove('back');
       event.target.parentNode.parentNode.classList.remove('back');
+    }
+    for(let i = 1; i < cards.length; i++){
+      cards[i].forEach(item1 => {
+        if(event.target.parentNode.children[1].innerHTML == item1.translation){
+          event.target.parentNode.children[1].innerHTML = item1.word;
+        }
+      });
     }
 });
