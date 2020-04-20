@@ -439,12 +439,13 @@ const cards = [
 
 // open/close burger
 document.querySelector('.menu_button').addEventListener('click',()=>{
-    if(document.querySelector('.burger').classList.contains('display_none')===true){
-        document.querySelector('.burger').classList.remove('display_none');
+    if(document.querySelector('.burger').classList.contains('left')){
+        document.querySelector('.burger').classList.remove('left');
+        document.querySelector('.menu_button').classList.remove('rotate_90');
     }
     else{
-        document.querySelector('.burger').classList.add('display_none');
-
+        document.querySelector('.burger').classList.add('left');
+        document.querySelector('.menu_button').classList.add('rotate_90');
     }
 });
 
@@ -584,7 +585,7 @@ document.querySelector('.main').addEventListener('mouseout',(event)=>{
   if (event.target.tagName==='button'.toUpperCase()){    
       event.target.parentNode.classList.remove('back');
       event.target.parentNode.parentNode.classList.remove('back');
-    }
+    
     for(let i = 1; i < cards.length; i++){
       cards[i].forEach(item1 => {
         if(event.target.parentNode.children[1].innerHTML == item1.translation){
@@ -592,4 +593,19 @@ document.querySelector('.main').addEventListener('mouseout',(event)=>{
         }
       });
     }
+  }
+});
+document.querySelector('.train_play').addEventListener('click', (event)=>{
+  if(document.querySelector('.polzunok').classList.contains('float_left')){
+    document.querySelector('.polzunok').classList.remove('float_left');
+    document.querySelector('.polzunok').classList.add('float_right');
+    document.querySelector('.train_text').classList.add('display_none');
+    document.querySelector('.play_text').classList.remove('display_none');
+  }
+  else{
+    document.querySelector('.polzunok').classList.add('float_left');
+    document.querySelector('.polzunok').classList.remove('float_right');
+    document.querySelector('.train_text').classList.remove('display_none');
+    document.querySelector('.play_text').classList.add('display_none');
+  }
 });
