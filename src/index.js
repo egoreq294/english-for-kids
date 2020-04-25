@@ -435,7 +435,7 @@ const cards = [
       }
     ]
   ]
-
+const audio = new Audio();
 
 // open/close burger
 document.querySelector('.menu_button').addEventListener('click',()=>{
@@ -460,12 +460,18 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
           let j = 0;
           if(event.target.innerHTML === cards[0][i]){
             if(event.target.innerHTML === 'Main Page'){
+              if(document.querySelector('.main_start_game_button')!=null){
+              document.querySelector('.main_start_game_button').classList.add('display_none'); 
+            }
               mainPage.forEach(item => {
                 item.classList.remove('category');
                 item.querySelector('.category_button').remove();
               });
             }
             else{
+              if(document.querySelector('.main_start_game_button')!=null){
+                document.querySelector('.main_start_game_button').classList.remove('display_none'); 
+              }
               if(!document.querySelector('.category_button')){
                   mainPage.forEach(item => {
                   item.classList.add('category');
@@ -488,7 +494,14 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
 
 //main click
 document.querySelector('.main').addEventListener('click',(event)=>{
-  if (event.target.tagName==='div'.toUpperCase()){  
+  if (event.target.tagName==='div'.toUpperCase()){
+    if(document.querySelector('.main_start_game_button')!=null){
+      document.querySelector('.main_start_game_button').classList.remove('display_none'); 
+    }
+    if(document.querySelector('.category')){
+      audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${event.target.children[1].innerHTML}.mp3`;
+      audio.play();
+    }
       for(let i = 0; i < cards[0].length; i++){
         let j = 0;
         if(event.target.lastChild.innerHTML === cards[0][i] || event.target.lastChild.lastChild.innerHTML){            
@@ -507,12 +520,23 @@ document.querySelector('.main').addEventListener('click',(event)=>{
           let button = document.createElement('button');
           button.classList.add('category_button');
           button.setAttribute('type', 'button');
+          let buttonImg = document.createElement('img');
+          buttonImg.setAttribute('src', '../src/img/flip.png');
+          buttonImg.setAttribute('class', 'button_img');
+          button.append(buttonImg);
           item.lastChild.append(button);
         });
       }
       });
    }
    if (event.target.tagName==='p'.toUpperCase()){
+     if(document.querySelector('.main_start_game_button')!=null){
+    document.querySelector('.main_start_game_button').classList.remove('display_none'); 
+  }
+  if(document.querySelector('.category')){
+    audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${event.target.innerHTML}.mp3`;
+      audio.play();
+  }
     for(let i = 0; i < cards[0].length; i++){
       let j = 0;
       if(event.target.innerHTML === cards[0][i]){            
@@ -532,12 +556,23 @@ document.querySelector('.main').addEventListener('click',(event)=>{
         button.classList.add('category_button');
         button.setAttribute('type', 'button');
         console.log(item);
+        let buttonImg = document.createElement('img');
+        buttonImg.setAttribute('src', '../src/img/flip.png');        
+        buttonImg.setAttribute('class', 'button_img');
+        button.append(buttonImg);
         item.lastChild.append(button);
       });
     }
     });
    }
-   if (event.target.tagName==='img'.toUpperCase()){
+   if (event.target.tagName==='img'.toUpperCase() && event.target.classList.contains('main_page--pics')){
+    if(document.querySelector('.main_start_game_button')!=null){
+      document.querySelector('.main_start_game_button').classList.remove('display_none'); 
+    }
+    if(document.querySelector('.category')){
+      audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${event.target.parentNode.children[1].innerHTML}.mp3`;
+      audio.play();
+    }
     for(let i = 0; i < cards[0].length; i++){
       let j = 0;
       if(event.target.parentNode.children[1].innerHTML === cards[0][i]){            
@@ -553,59 +588,88 @@ document.querySelector('.main').addEventListener('click',(event)=>{
       if(!document.querySelector('.category_button')){
         mainPage.forEach(item => {
         item.classList.add('category');
-        let button = document.createElement('button');
+        let button = document.createElement('button');        
         button.classList.add('category_button');
         button.setAttribute('type', 'button');
+        let buttonImg = document.createElement('img');
+        buttonImg.setAttribute('src', '../src/img/flip.png');
+        buttonImg.setAttribute('class', 'button_img');
+        button.append(buttonImg);
         item.lastChild.append(button);
       });
     }
     });
   }
+
    
    
 });
 
 //flip
 document.querySelector('.main').addEventListener('click',(event)=>{
-  if (event.target.tagName==='button'.toUpperCase()){    
-    event.target.parentNode.classList.add('back');
+  if (event.target.tagName==='img'.toUpperCase() && event.target.classList.contains('button_img')){ 
+    console.log(event.target);
     event.target.parentNode.parentNode.classList.add('back');
-      
-    
+    event.target.parentNode.parentNode.parentNode.classList.add('back');
     for(let i = 1; i < cards.length; i++){
       cards[i].forEach(item1 => {
-        if(event.target.parentNode.children[1].innerHTML == item1.word){
-          event.target.parentNode.children[1].innerHTML = item1.translation;
+        if(event.target.parentNode.parentNode.children[1].innerHTML == item1.word){
+          event.target.parentNode.parentNode.children[1].innerHTML = item1.translation;
         }
       });
     }
   }
 });
+
 document.querySelector('.main').addEventListener('mouseout',(event)=>{
-  if (event.target.tagName==='button'.toUpperCase()){    
-      event.target.parentNode.classList.remove('back');
+  if (event.target.tagName==='img'.toUpperCase() && event.target.classList.contains('button_img')){    
       event.target.parentNode.parentNode.classList.remove('back');
+      event.target.parentNode.parentNode.parentNode.classList.remove('back');
     
     for(let i = 1; i < cards.length; i++){
       cards[i].forEach(item1 => {
-        if(event.target.parentNode.children[1].innerHTML == item1.translation){
-          event.target.parentNode.children[1].innerHTML = item1.word;
+        if(event.target.parentNode.parentNode.children[1].innerHTML == item1.translation){
+          event.target.parentNode.parentNode.children[1].innerHTML = item1.word;
         }
       });
     }
   }
 });
+
+//train/play
 document.querySelector('.train_play').addEventListener('click', (event)=>{
   if(document.querySelector('.polzunok').classList.contains('float_left')){
     document.querySelector('.polzunok').classList.remove('float_left');
     document.querySelector('.polzunok').classList.add('float_right');
     document.querySelector('.train_text').classList.add('display_none');
     document.querySelector('.play_text').classList.remove('display_none');
+    document.querySelector('.train_play').classList.add('polzunok_play');
+    document.querySelector('.train_play').classList.remove('polzunok_train');
   }
   else{
     document.querySelector('.polzunok').classList.add('float_left');
     document.querySelector('.polzunok').classList.remove('float_right');
     document.querySelector('.train_text').classList.remove('display_none');
     document.querySelector('.play_text').classList.add('display_none');
+    document.querySelector('.train_play').classList.remove('polzunok_play');
+    document.querySelector('.train_play').classList.add('polzunok_train');
+  }
+});
+
+//click train/play
+document.querySelector('.train_play').addEventListener('click', (event)=>{
+  console.log(event);
+  console.log(event.target);
+ if(document.querySelector('.train_play').classList.contains('polzunok_play')){
+    let startGameButton = document.createElement('button');        
+    startGameButton.classList.add('main_start_game_button');
+    startGameButton.setAttribute('type', 'button');
+    document.querySelector('.main').append(startGameButton);
+    if(document.querySelector('.category') == null){
+      document.querySelector('.main_start_game_button').classList.add('display_none');
+    }
+  }
+  else{
+    document.querySelector('.main_start_game_button').remove();
   }
 });
