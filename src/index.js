@@ -436,6 +436,8 @@ const cards = [
     ]
   ]
 const audio = new Audio();
+let playGame = [];
+let playGameCounter = 0;
 
 // open/close burger
 document.querySelector('.menu_button').addEventListener('click',()=>{
@@ -461,24 +463,54 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
           if(event.target.innerHTML === cards[0][i]){
             if(event.target.innerHTML === 'Main Page'){
               if(document.querySelector('.main_start_game_button')!=null){
-              document.querySelector('.main_start_game_button').classList.add('display_none'); 
-            }
-              mainPage.forEach(item => {
-                item.classList.remove('category');
-                item.querySelector('.category_button').remove();
-              });
+                document.querySelector('.main_start_game_button').classList.add('display_none');
+                //
+                if(document.querySelector('.game_started')!=null){
+                  document.querySelector('.game_started').classList.remove('game_started');
+                }
+                //
+              }              
+              if(document.querySelector('.main_page--text').classList.contains('display_none')==true){
+                document.querySelectorAll('.main_page--text').forEach(item=>{
+                  item.classList.remove('display_none');
+                  item.parentNode.children[0].classList.remove('full_size_pic');
+                });
+              }
+              if(document.querySelector('.category')!=null){
+                mainPage.forEach(item => {
+                  item.classList.remove('category');
+                  item.querySelector('.category_button').remove();
+                });
+              }
             }
             else{
               if(document.querySelector('.main_start_game_button')!=null){
-                document.querySelector('.main_start_game_button').classList.remove('display_none'); 
+                document.querySelector('.main_start_game_button').classList.remove('display_none');
+                //
+                if(document.querySelector('.game_started')!=null){
+                  document.querySelector('.game_started').classList.remove('game_started');
+                }
+                //
               }
-              if(!document.querySelector('.category_button')){
+              
+              if(document.querySelector('.category_button')==null){
                   mainPage.forEach(item => {
                   item.classList.add('category');
                   let button = document.createElement('button');
                   button.classList.add('category_button');
                   button.setAttribute('type', 'button');
+                  let buttonImg = document.createElement('img');
+                  buttonImg.setAttribute('src', '../src/img/flip.png');
+                  buttonImg.setAttribute('class', 'button_img');
+                  button.append(buttonImg);
                   item.lastChild.append(button);
+                });
+              }
+              if(document.querySelector('.polzunok_play')!=null){
+                document.querySelectorAll('.main_page--text').forEach(item=>{
+                  item.classList.add('display_none');
+                  item.parentNode.lastChild.classList.add('display_none');
+                  item.parentNode.children[0].classList.add('full_size_pic');
                 });
               }
             }
@@ -494,11 +526,11 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
 
 //main click
 document.querySelector('.main').addEventListener('click',(event)=>{
-  if (event.target.tagName==='div'.toUpperCase()){
+  if (event.target.tagName==='div'.toUpperCase() && event.target.classList.contains('front')){
     if(document.querySelector('.main_start_game_button')!=null){
       document.querySelector('.main_start_game_button').classList.remove('display_none'); 
     }
-    if(document.querySelector('.category')){
+    if(document.querySelector('.category') && document.querySelector('.train_play').classList.contains('polzunok_train')){
       audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${event.target.children[1].innerHTML}.mp3`;
       audio.play();
     }
@@ -528,12 +560,19 @@ document.querySelector('.main').addEventListener('click',(event)=>{
         });
       }
       });
+      if(document.querySelector('.polzunok_play')!=null){
+        document.querySelectorAll('.main_page--text').forEach(item=>{
+          item.classList.add('display_none');
+          item.parentNode.lastChild.classList.add('display_none');
+          item.parentNode.children[0].classList.add('full_size_pic');
+        });
+      }
    }
-   if (event.target.tagName==='p'.toUpperCase()){
+   if (event.target.tagName==='p'.toUpperCase() && event.target.classList.contains('main_page--text')){
      if(document.querySelector('.main_start_game_button')!=null){
     document.querySelector('.main_start_game_button').classList.remove('display_none'); 
   }
-  if(document.querySelector('.category')){
+  if(document.querySelector('.category') && document.querySelector('.train_play').classList.contains('polzunok_train')){
     audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${event.target.innerHTML}.mp3`;
       audio.play();
   }
@@ -564,12 +603,19 @@ document.querySelector('.main').addEventListener('click',(event)=>{
       });
     }
     });
+    if(document.querySelector('.polzunok_play')!=null){
+      document.querySelectorAll('.main_page--text').forEach(item=>{
+        item.classList.add('display_none');
+        item.parentNode.lastChild.classList.add('display_none');
+        item.parentNode.children[0].classList.add('full_size_pic');
+      });
+    }
    }
    if (event.target.tagName==='img'.toUpperCase() && event.target.classList.contains('main_page--pics')){
     if(document.querySelector('.main_start_game_button')!=null){
-      document.querySelector('.main_start_game_button').classList.remove('display_none'); 
+      document.querySelector('.main_start_game_button').classList.remove('display_none');
     }
-    if(document.querySelector('.category')){
+    if(document.querySelector('.category') && document.querySelector('.train_play').classList.contains('polzunok_train')){
       audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${event.target.parentNode.children[1].innerHTML}.mp3`;
       audio.play();
     }
@@ -599,10 +645,14 @@ document.querySelector('.main').addEventListener('click',(event)=>{
       });
     }
     });
+    if(document.querySelector('.polzunok_play')!=null){
+      document.querySelectorAll('.main_page--text').forEach(item=>{
+        item.classList.add('display_none');
+        item.parentNode.lastChild.classList.add('display_none');
+        item.parentNode.children[0].classList.add('full_size_pic');
+      });
+    }
   }
-
-   
-   
 });
 
 //flip
@@ -658,8 +708,6 @@ document.querySelector('.train_play').addEventListener('click', (event)=>{
 
 //click train/play
 document.querySelector('.train_play').addEventListener('click', (event)=>{
-  console.log(event);
-  console.log(event.target);
  if(document.querySelector('.train_play').classList.contains('polzunok_play')){
     let startGameButton = document.createElement('button');        
     startGameButton.classList.add('main_start_game_button');
@@ -667,9 +715,75 @@ document.querySelector('.train_play').addEventListener('click', (event)=>{
     document.querySelector('.main').append(startGameButton);
     if(document.querySelector('.category') == null){
       document.querySelector('.main_start_game_button').classList.add('display_none');
+
+    }
+    else{
+      document.querySelectorAll('.main_page--text').forEach(item=>{
+        item.classList.add('display_none');
+        item.parentNode.lastChild.classList.add('display_none');
+        item.parentNode.children[0].classList.add('full_size_pic');
+      });
     }
   }
   else{
     document.querySelector('.main_start_game_button').remove();
+    if(document.querySelector('.category') != null){
+      document.querySelectorAll('.main_page--text').forEach(item=>{
+        item.classList.remove('display_none');
+        item.parentNode.lastChild.classList.remove('display_none');
+        item.parentNode.children[0].classList.remove('full_size_pic');
+      });
+    }
+  }
+});
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+//start game click
+document.querySelector('.main').addEventListener('click', event=>{
+  if(event.target.tagName==='button'.toUpperCase() && event.target.classList.contains('main_start_game_button')){    
+    event.target.classList.add('game_started');
+    let j = 0;
+    document.querySelectorAll('.main_page--text').forEach(item=>{
+      playGame[j] = item.innerHTML;
+      j++;
+    });
+    shuffle(playGame);
+
+    audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${playGame[playGameCounter]}.mp3`;
+    audio.play();
+
+  }
+});
+function playAudio(src){
+  audio.src = src;
+  audio.play();
+}
+
+//play game
+document.querySelector('.main').addEventListener('click', event=>{
+  if(event.target.tagName==='img'.toUpperCase() && event.target.classList.contains('main_page--pics') && document.querySelector('.game_started')!=null){
+    if(playGame[playGameCounter] == event.target.parentNode.children[1].innerHTML){
+      console.log('q')
+      audio.src = '../src/audio/nice.mp3';
+      audio.play();
+      playGameCounter+=1;
+    }
+    else if(playGame[playGameCounter] != event.target.parentNode.children[1].innerHTML){
+      audio.src = '../src/audio/false.mp3';
+      audio.play();
+    }
+    if(+playGameCounter<8){
+      setTimeout(()=>{
+        audio.src = `https://wooordhunt.ru/data/sound/word/us/mp3/${playGame[playGameCounter]}.mp3`;
+        audio.play();
+      }, 1000);
+    }
+    if(+playGameCounter>=8){
+      playGameCounter = 0;
+      playGame = [];
+      document.querySelector('.game_started').classList.remove('game_started');
+    }
+    
   }
 });
