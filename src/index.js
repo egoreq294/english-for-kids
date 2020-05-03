@@ -438,6 +438,7 @@ const cards = [
 const audio = new Audio();
 let playGame = [];
 let playGameCounter = 0;
+let missCounter = 0;
 
 // open/close burger
 document.querySelector('.menu_button').addEventListener('click',()=>{
@@ -521,6 +522,13 @@ document.querySelector('.burger_ul').addEventListener('click',(event)=>{
           });
         }        
       }
+      document.querySelector('.burger').classList.remove('left');
+      document.querySelector('.menu_button').classList.remove('rotate_90');
+      document.querySelectorAll('.front').forEach(item=>{
+        item.classList.remove('display_none');
+      });
+      document.querySelectorAll('.star').forEach(item=>{item.remove()});
+      document.querySelectorAll('.lose_star').forEach(item=>{item.remove()});
     }
 });
 
@@ -709,7 +717,14 @@ document.querySelector('.train_play').addEventListener('click', (event)=>{
 //click train/play
 document.querySelector('.train_play').addEventListener('click', (event)=>{
  if(document.querySelector('.train_play').classList.contains('polzunok_play')){
-    let startGameButton = document.createElement('button');        
+    let startGameButton = document.createElement('button');
+    /*let img = document.createElement('img');
+    let p = document.createElement('p');
+    img.setAttribute('src','../src/img/flip.png');
+    img.setAttribute('class','display_none');
+    p.innerHTML = 'Start game';
+    startGameButton.append(img);
+    startGameButton.append(p);*/
     startGameButton.classList.add('main_start_game_button');
     startGameButton.setAttribute('type', 'button');
     document.querySelector('.main').append(startGameButton);
@@ -735,13 +750,21 @@ document.querySelector('.train_play').addEventListener('click', (event)=>{
       });
     }
   }
+  document.querySelectorAll('.front').forEach(item=>{
+    item.classList.remove('display_none');
+  });
+  document.querySelectorAll('.star').forEach(item=>{item.remove()});
+  document.querySelectorAll('.lose_star').forEach(item=>{item.remove()});
 });
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
 }
 //start game click
 document.querySelector('.main').addEventListener('click', event=>{
-  if(event.target.tagName==='button'.toUpperCase() && event.target.classList.contains('main_start_game_button')){    
+  if(event.target.tagName==='button'.toUpperCase() && event.target.classList.contains('main_start_game_button') && !event.target.classList.contains('game_started')){
+    playGameCounter = 0;
+    missCounter = 0;
+    playGame = [];   
     event.target.classList.add('game_started');
     let j = 0;
     document.querySelectorAll('.main_page--text').forEach(item=>{
@@ -754,6 +777,9 @@ document.querySelector('.main').addEventListener('click', event=>{
     audio.play();
 
   }
+  if(event.target.tagName==='button'.toUpperCase() && event.target.classList.contains('main_start_game_button') && event.target.classList.contains('game_started')){
+    audio.play();
+  }
 });
 function playAudio(src){
   audio.src = src;
@@ -764,14 +790,29 @@ function playAudio(src){
 document.querySelector('.main').addEventListener('click', event=>{
   if(event.target.tagName==='img'.toUpperCase() && event.target.classList.contains('main_page--pics') && document.querySelector('.game_started')!=null){
     if(playGame[playGameCounter] == event.target.parentNode.children[1].innerHTML){
-      console.log('q')
       audio.src = '../src/audio/nice.mp3';
       audio.play();
       playGameCounter+=1;
+      event.target.parentNode.classList.add('display_none');
+
+      let star = document.createElement('div');
+      star.setAttribute('class', 'star');
+      let img = document.createElement('img');
+      img.setAttribute('src','../src/img/star\ \(2\).png');
+      star.append(img);
+      document.querySelector('.star_line').append(star);
     }
     else if(playGame[playGameCounter] != event.target.parentNode.children[1].innerHTML){
       audio.src = '../src/audio/false.mp3';
       audio.play();
+
+      let lose_star = document.createElement('div');
+      lose_star.setAttribute('class', 'lose_star');
+      let img = document.createElement('img');
+      img.setAttribute('src','../src/img/lose_star.png');
+      lose_star.append(img);
+      document.querySelector('.star_line').append(lose_star);
+      missCounter+=1;
     }
     if(+playGameCounter<8){
       setTimeout(()=>{
@@ -780,9 +821,86 @@ document.querySelector('.main').addEventListener('click', event=>{
       }, 1000);
     }
     if(+playGameCounter>=8){
-      playGameCounter = 0;
-      playGame = [];
       document.querySelector('.game_started').classList.remove('game_started');
+      document.querySelectorAll('.front').forEach(item=>{
+        item.classList.remove('display_none');
+      });
+      document.querySelectorAll('.star').forEach(item=>{item.remove()});
+      document.querySelectorAll('.lose_star').forEach(item=>{item.remove()});
+      if(missCounter == 0){
+        document.querySelector('.win').classList.remove('display_none');
+        setTimeout(()=>{
+          document.querySelector('.win').classList.add('display_none');
+
+
+          if(document.querySelector('.main_start_game_button')!=null){
+            document.querySelector('.main_start_game_button').classList.add('display_none');
+            if(document.querySelector('.game_started')!=null){
+              document.querySelector('.game_started').classList.remove('game_started');
+            }
+          }              
+          if(document.querySelector('.main_page--text').classList.contains('display_none')==true){
+            document.querySelectorAll('.main_page--text').forEach(item=>{
+              item.classList.remove('display_none');
+              item.parentNode.children[0].classList.remove('full_size_pic');
+            });
+          }
+          if(document.querySelector('.category')!=null){
+            mainPage.forEach(item => {
+              item.classList.remove('category');
+              item.querySelector('.category_button').remove();
+            });
+          }
+          let j = 0;
+          cards[1].forEach(item=>{
+            mainPagePictures[j].src = item.image;
+            mainPageText[j].innerHTML = item.word;            
+            j += 1;
+          });
+
+
+
+        }, 5000);
+      }
+      if(missCounter>0){
+        let p = document.createElement('p');
+        p.innerHTML = `You made ${missCounter} mistakes, try again`;
+        document.querySelector('.lose').append(p);
+        document.querySelector('.lose').classList.remove('display_none');
+        setTimeout(()=>{
+          document.querySelector('.lose').classList.add('display_none');
+          document.querySelector('.lose').children[1].remove();
+
+
+          if(document.querySelector('.main_start_game_button')!=null){
+            document.querySelector('.main_start_game_button').classList.add('display_none');
+            if(document.querySelector('.game_started')!=null){
+              document.querySelector('.game_started').classList.remove('game_started');
+            }
+          }              
+          if(document.querySelector('.main_page--text').classList.contains('display_none')==true){
+            document.querySelectorAll('.main_page--text').forEach(item=>{
+              item.classList.remove('display_none');
+              item.parentNode.children[0].classList.remove('full_size_pic');
+            });
+          }
+          if(document.querySelector('.category')!=null){
+            mainPage.forEach(item => {
+              item.classList.remove('category');
+              item.querySelector('.category_button').remove();
+            });
+          }
+          let j = 0;
+          cards[1].forEach(item=>{
+            mainPagePictures[j].src = item.image;
+            mainPageText[j].innerHTML = item.word;            
+            j += 1;
+          });
+
+
+        }, 5000);
+
+      }
     }
     
   }
